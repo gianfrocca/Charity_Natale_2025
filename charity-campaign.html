@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natale di Solidarietà - Juventus Club Valdichiana Cortonese</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* ===== ANIMAZIONI DI BASE ===== */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-10vh) translateX(0);
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* ===== NEVE IN BACKGROUND ===== */
+        .snowflake {
+            position: fixed;
+            top: -10%;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: 1;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+
+        /* ===== HEADER/NAVIGATION ===== */
+        header {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: white;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .logo-subtitle {
+            font-size: 11px;
+            color: #ff4444;
+            font-weight: 600;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: 600;
+            font-size: 13px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ff4444;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #0d47a1 100%);
+            color: white;
+            padding: 150px 20px 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,68,68,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            top: 10%;
+            right: 10%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255,193,7,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: 10%;
+            left: 5%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 60px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            line-height: 1.2;
+        }
+
+        .hero h1 .highlight {
+            color: #ff4444;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .hero-decorative {
+            font-size: 40px;
+            margin: 30px 0;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .cta-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff4444 0%, #ff6666 100%);
+            color: white;
+            padding: 18px 50px;
+            font-size: 18px;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(255,68,68,0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255,68,68,0.5);
+        }
+
+        /* ===== SEZIONE LA STORIA ===== */
+        .section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            margin-bottom: 50px;
+            text-align: center;
+            color: #000;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff4444, #ff6666);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .story-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .story-text h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .story-text p {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .story-text .emoji {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .story-image {
+            text-align: center;
+            position: relative;
+        }
+
+        .story-image-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: #ccc;
+        }
+
+        /* ===== SEZIONE COME FUNZIONA ===== */
+        .how-it-works {
+            background: linear-gradient(135deg, #f8f8f8 0%, #fff 100%);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .step-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff4444, #ff6666);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .step-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .step-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ff4444, #ff6666);
+            color: white;
+            border-radius: 50%;
+            line-height: 50px;
+            font-weight: 800;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .step-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #000;
+        }
+
+        .step-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* ===== SEZIONE OSPEDALE ===== */
+        .hospital-section {
+            background: white;
+        }
+
+        .hospital-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hospital-logo {
+            text-align: center;
+        }
+
+        .hospital-logo-placeholder {
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #999;
+            margin: 0 auto;
+        }
+
+        .hospital-info h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .hospital-info p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .department-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #0d47a1, #1565c0);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        /* ===== SEZIONE TESTIMONIAL ===== */
+        .testimonials-section {
+            background: linear-gradient(135deg, #f8f8f8 0%, #fff 100%);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .testimonial-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff4444, #ff6666);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        .testimonial-card h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #000;
+        }
+
+        .testimonial-card .role {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .testimonial-card p {
+            font-size: 14px;
+            color: #555;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .stars {
+            color: #ff4444;
+            margin-top: 10px;
+        }
+
+        /* ===== SEZIONE IMPATTO ===== */
+        .impact-section {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: white;
+        }
+
+        .impact-section .section-title {
+            color: white;
+        }
+
+        .impact-section .section-title::after {
+            background: linear-gradient(90deg, #ff4444, #ffcc00);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            color: #ff4444;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #ddd;
+        }
+
+        /* ===== SEZIONE CALL TO ACTION ===== */
+        .final-cta {
+            background: linear-gradient(135deg, #ff4444 0%, #ff6666 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+
+        .final-cta p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .cta-secondary {
+            display: inline-block;
+            background: white;
+            color: #ff4444;
+            padding: 16px 45px;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 10px;
+        }
+
+        .cta-secondary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #000;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 2px solid #ff4444;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #999;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 13px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #ff4444;
+        }
+
+        .footer-social {
+            margin: 20px 0;
+        }
+
+        .social-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #222;
+            border-radius: 50%;
+            line-height: 40px;
+            margin: 0 8px;
+            color: #ff4444;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            background: #ff4444;
+            color: white;
+        }
+
+        .footer-bottom {
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #222;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero-subtitle {
+                font-size: 18px;
+            }
+
+            .story-content, .hospital-content {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .final-cta h2 {
+                font-size: 28px;
+            }
+
+            .stat-number {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <div>⚪⚫ JC</div>
+                <div class="logo-subtitle">CHARITY 2024</div>
+            </div>
+            <nav>
+                <a href="#storia">La Storia</a>
+                <a href="#come">Come Funziona</a>
+                <a href="#ospedale">L'Ospedale</a>
+                <a href="#impatto">Impatto</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <div class="hero-decorative">🎄 🎁 ❤️</div>
+            <h1>
+                Natale di <span class="highlight">Solidarietà</span>
+            </h1>
+            <p class="hero-subtitle">
+                Porta gioia ai bambini dell'Ospedale San Donato di Arezzo
+            </p>
+            <p class="hero-decorative">✨ Unisciti a noi ✨</p>
+            <a href="#" class="cta-primary">Dona Ora su GoFundMe</a>
+        </div>
+    </section>
+
+    <!-- LA STORIA -->
+    <section class="section" id="storia">
+        <h2 class="section-title">La Nostra <span class="highlight">Iniziativa</span></h2>
+
+        <div class="story-content">
+            <div class="story-text">
+                <h2>Perché Facciamo Questo?</h2>
+                <p>
+                    <span class="emoji">❤️</span>
+                    Lo Juventus Club Valdichiana Cortonese crede nel potere della comunità e nella solidarietà. Questo Natale, vogliamo portare un sorriso ai bambini ricoverati nei reparti di Pediatria dell'Ospedale San Donato di Arezzo.
+                </p>
+                <p>
+                    <span class="emoji">🎁</span>
+                    Con il vostro supporto, raccoglieremo fondi per acquistare regali e fare un'offerta all'ospedale, contribuendo a rendere il Natale speciale per i bambini e supportando le strutture che se ne prendono cura.
+                </p>
+                <p>
+                    <span class="emoji">🤝</span>
+                    Ogni contributo, grande o piccolo, fa la differenza. Siete parte di questa bellissima comunità bianconera.
+                </p>
+            </div>
+            <div class="story-image">
+                <div class="story-image-placeholder">
+                    <span>Foto dell'iniziativa</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COME FUNZIONA -->
+    <section class="section how-it-works" id="come">
+        <h2 class="section-title">Come Funziona</h2>
+
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <span class="step-icon">💳</span>
+                <h3>Donate</h3>
+                <p>
+                    Donate tramite GoFundMe. Ogni contributo è importante e vi aiuterà a supportare questa bellissima causa.
+                </p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <span class="step-icon">🎁</span>
+                <h3>Raccogliamo</h3>
+                <p>
+                    Utilizziamo i fondi per acquistare regali e materiali per l'ospedale, scelti con cura per i bambini.
+                </p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <span class="step-icon">🏥</span>
+                <h3>Consegniamo</h3>
+                <p>
+                    I nostri soci porteranno di persona i regali ai bambini della Pediatria, portando gioia e speranza.
+                </p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <span class="step-icon">✨</span>
+                <h3>Condividiamo</h3>
+                <p>
+                    Condivideremo le foto e le storie di questa bellissima iniziativa con la comunità.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- OSPEDALE -->
+    <section class="section hospital-section" id="ospedale">
+        <h2 class="section-title">Il Nostro Partner</h2>
+
+        <div class="hospital-content">
+            <div class="hospital-logo">
+                <div class="hospital-logo-placeholder">
+                    Logo Ospedale<br>San Donato
+                </div>
+            </div>
+            <div class="hospital-info">
+                <h2>Ospedale San Donato - Arezzo</h2>
+                <p>
+                    L'Ospedale San Donato di Arezzo è una struttura sanitaria d'eccellenza che accoglie pazienti da tutta la regione Toscana.
+                </p>
+                <p>
+                    Il reparto di <strong>Pediatria</strong> si prende cura dei nostri bambini con dedizione e professionalità, offrendo loro le migliori cure possibili.
+                </p>
+                <p>
+                    La nostra iniziativa intende supportare questo prezioso reparto e portare un sorriso ai bambini ricoverati durante il periodo natalizio.
+                </p>
+                <span class="department-badge">🏥 Reparto Pediatria</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIAL -->
+    <section class="section testimonials-section">
+        <h2 class="section-title">I Nostri Soci Dicono</h2>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-avatar">⚪</div>
+                <h3>Spazio per Voi</h3>
+                <div class="role">Socio del Club</div>
+                <p>
+                    "Inserire qui la testimonianza di un socio entusiasta dell'iniziativa"
+                </p>
+                <div class="stars">★★★★★</div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-avatar">⚫</div>
+                <h3>Spazio per Voi</h3>
+                <div class="role">Socio del Club</div>
+                <p>
+                    "Inserire qui la testimonianza di un socio entusiasta dell'iniziativa"
+                </p>
+                <div class="stars">★★★★★</div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-avatar">❤️</div>
+                <h3>Spazio per Voi</h3>
+                <div class="role">Socio del Club</div>
+                <p>
+                    "Inserire qui la testimonianza di un socio entusiasta dell'iniziativa"
+                </p>
+                <div class="stars">★★★★★</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IMPATTO -->
+    <section class="section impact-section" id="impatto">
+        <h2 class="section-title">Il Nostro Impatto</h2>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" data-target="0">0</div>
+                <div class="stat-label">Bambini Raggiunti</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="0">€0</div>
+                <div class="stat-label">Fondi Raccolti</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="0">0</div>
+                <div class="stat-label">Regali Consegnati</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-target="0">0</div>
+                <div class="stat-label">Soci Coinvolti</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta">
+        <h2>Siamo Pronti a Fare la Differenza</h2>
+        <p>
+            Ogni donazione, grande o piccola, porta gioia e speranza ai bambini dell'Ospedale San Donato
+        </p>
+        <a href="#" class="cta-secondary">Dona Ora</a>
+        <a href="#" class="cta-secondary">Condividi</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="https://www.jcvaldichianacortonese.it" target="_blank">Torna al Sito Principale</a>
+                <a href="#">Info Contatti</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Chi Siamo</a>
+            </div>
+
+            <div class="footer-social">
+                <a href="#" class="social-icon">f</a>
+                <a href="#" class="social-icon">📷</a>
+                <a href="#" class="social-icon">🐦</a>
+            </div>
+
+            <div class="footer-bottom">
+                © 2024 Juventus Club Valdichiana Cortonese | Natale di Solidarietà | Tutti i diritti riservati
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT PER ANIMAZIONI -->
+    <script>
+        // ===== NEVE ANIMATA =====
+        function createSnowflakes() {
+            const snowflakesContainer = document.body;
+            const numberOfSnowflakes = 50;
+
+            for (let i = 0; i < numberOfSnowflakes; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.style.left = Math.random() * 100 + '%';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                snowflake.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                snowflake.style.animation = `snowfall ${Math.random() * 10 + 10}s linear infinite`;
+                snowflake.style.width = Math.random() * 10 + 5 + 'px';
+                snowflake.style.height = snowflake.style.width;
+                snowflakesContainer.appendChild(snowflake);
+            }
+        }
+
+        // ===== SMOOTH SCROLL =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ===== ANIMAZIONE SCROLL REVEAL =====
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section, .step-card, .testimonial-card, .stat-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ===== CONTATORI ANIMATI =====
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200;
+
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText.replace('€', '');
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + target / speed);
+                        setTimeout(updateCount, 50);
+                    }
+                };
+
+                updateCount();
+            });
+        }
+
+        // Avvia i contatori quando la sezione è visibile
+        const statsSection = document.querySelector('.impact-section');
+        const statsObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                animateCounters();
+                statsObserver.unobserve(statsSection);
+            }
+        });
+
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // ===== INIZIALIZZAZIONE =====
+        window.addEventListener('load', () => {
+            createSnowflakes();
+        });
+
+        // Fallback se il caricamento è lento
+        setTimeout(createSnowflakes, 500);
+    </script>
+</body>
+</html>

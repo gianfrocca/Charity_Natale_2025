@@ -77,21 +77,7 @@
             }
         }
 
-        @keyframes ornamentBounce {
-            0%, 100% {
-                transform: translateY(0) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-15px) rotate(10deg);
-            }
-        }
-
-        @keyframes twinkling {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 1; }
-        }
-
-        /* ===== NEVE E DECORAZIONI IN BACKGROUND ===== */
+        /* ===== NEVE IN BACKGROUND ===== */
         .snowflake {
             position: fixed;
             top: -10%;
@@ -103,13 +89,6 @@
             pointer-events: none;
             z-index: 1;
             box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
-        }
-
-        .ornament {
-            position: fixed;
-            pointer-events: none;
-            z-index: 1;
-            font-size: 30px;
         }
 
         /* ===== HEADER/NAVIGATION ===== */
@@ -372,9 +351,9 @@
 
         .steps-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 40px;
-            margin-bottom: 60px;
+            margin-bottom: 0;
         }
 
         .step-card {
@@ -443,8 +422,6 @@
 
         /* ===== CARD CONDIVIDIAMO SENZA NUMERO ===== */
         .share-card {
-            max-width: 350px;
-            margin: 0 auto;
             background: white;
             padding: 40px;
             border-radius: 15px;
@@ -1016,16 +993,16 @@
                     I nostri soci porteranno di persona i regali ai bambini della Pediatria, portando gioia e speranza.
                 </p>
             </div>
-        </div>
 
-        <!-- CARD CONDIVIDIAMO SENZA NUMERO -->
-        <div class="share-card">
-            <span class="share-icon">📢</span>
-            <h3>Condividiamo</h3>
-            <p>
-                Aiutaci a diffondere questa bellissima iniziativa! Condividi con la tua famiglia e i tuoi amici.
-            </p>
-            <button class="share-button-card" id="btnShareCard">Condividi Ora</button>
+            <!-- CARD CONDIVIDIAMO SENZA NUMERO -->
+            <div class="share-card">
+                <span class="share-icon">📢</span>
+                <h3>Condividiamo</h3>
+                <p>
+                    Aiutaci a diffondere questa bellissima iniziativa! Condividi con la tua famiglia e i tuoi amici.
+                </p>
+                <button class="share-button-card" id="btnShareCard">Condividi Ora</button>
+            </div>
         </div>
     </section>
 
@@ -1212,21 +1189,6 @@
                 snowflake.style.width = Math.random() * 10 + 5 + 'px';
                 snowflake.style.height = snowflake.style.width;
                 snowflakesContainer.appendChild(snowflake);
-            }
-
-            // Aggiungi ornamenti natalizi
-            const ornaments = ['🎄', '🎀', '🔔', '⭐'];
-            const numberOfOrnaments = 15;
-
-            for (let i = 0; i < numberOfOrnaments; i++) {
-                const ornament = document.createElement('div');
-                ornament.classList.add('ornament');
-                ornament.textContent = ornaments[Math.floor(Math.random() * ornaments.length)];
-                ornament.style.left = Math.random() * 100 + '%';
-                ornament.style.top = Math.random() * 30 + '%';
-                ornament.style.animationDelay = Math.random() * 3 + 's';
-                ornament.style.animation = `ornamentBounce ${Math.random() * 3 + 4}s ease-in-out infinite`;
-                snowflakesContainer.appendChild(ornament);
             }
         }
 
